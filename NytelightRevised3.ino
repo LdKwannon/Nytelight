@@ -1,6 +1,28 @@
 #include "FastLED.h"
 #include <dht.h>
 
+//Nightlight with Temperature Sensor for visual check of child's room over color camera baby monitor.
+//
+//This was something I put together as a safety device and nightlight for my children shortly after they were born.
+//Very useful if you're home has uneven temperatures from room to room, so you can know at a glance from the hallway or
+//a color baby monitor, whether or not the temperature in your child's room is within the range you specify. Temp is in Fahrenheit.
+//
+//I am using a 25 LED light ring from adafruit in this project and a temperature sensor with an Arduino-UNO.
+//It is bright enough in a globe enclosure frankly to light up the room like the sun, so my advice, alter your build with a lightshield
+//or use no more than a 5 led light with a shroud.
+//
+//Always keep the nightlight within visual field of the color camera.
+//
+//If you use a black and white camera, you're only going to see it go bright and you won't know whether or not it is too hot or too cold on sight. You'll have to go
+//in the room or alter the code to your liking.. maybe a pulse pattern? But, lets not wake up the kinder with flashing lights in the night, eh?
+//
+//Code will let you know if the temperature/humidity sensor is disconnected or non functional via led.
+//
+//uses FastLED (led library) and dht (temp and humidity sensor) libraries, license info for those will be added here when I find them.
+//Humidity sensor is NOT used in this build, though the option exists.
+//
+//Programmer: Lourdes Bond
+
 #define NUM_LEDS 24
 #define DATA_PIN 9
 #define DHT11_PIN 7
@@ -21,13 +43,13 @@ void setup() {
   Serial.begin(57600);
   Serial.println("Setup Complete.");
   LEDS.setBrightness(10); //added by Lola
-  singleRandomLED(0x7FFF00);//added by Lola .. Acts as a pretty good, hi we're on flash.
+  singleRandomLED(0x7FFF00);//added by Lola .. Acts as a pretty good, hi we're on, flash.
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
 
-  delay(2000); //added by Lola (To assure polling of temp sensor every 2 seconds and no faster.
+  delay(2000); //added by Lola (To assure polling of temp sensor every 2 seconds and no faster).
   tmphum();//Temperature Check subroutine!
     if (tmpf<=tC){tooCold();}
     if (tmpf>=tH){tooHot();}
@@ -122,4 +144,3 @@ void sensorDeadMode(){
   allColor(0x000000);
   singleRandomLED(0xFFC300);//added by Lola
 }
-
