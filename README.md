@@ -7,7 +7,7 @@ This was something I put together as a safety device and nightlight for my child
 Very useful if you're home has uneven temperatures from room to room, so you can know at a glance from the hallway or
 a color baby monitor, whether or not the temperature in your child's room is within the range you specify. Temp is in Fahrenheit.
 
-I am using a 25 LED Adafruit NeoPixel ring in this project and a temperature sensor with an Arduino-UNO.
+I am using a 25 LED Adafruit NeoPixel ring and Adafruit DH11 temperature and humidity sensor in this project and a temperature sensor with an Arduino-UNO.
 It is bright enough in a globe enclosure frankly to light up the room like the sun, so my advice, alter your build with a lightshield
 or use no more than a 5 led light with a shroud.
 
