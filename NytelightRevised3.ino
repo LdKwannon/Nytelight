@@ -7,7 +7,7 @@
 //Very useful if you're home has uneven temperatures from room to room, so you can know at a glance from the hallway or
 //a color baby monitor, whether or not the temperature in your child's room is within the range you specify. Temp is in Fahrenheit.
 //
-//I am using a 25 LED light ring from adafruit in this project and a temperature sensor with an Arduino-UNO.
+//I am using a 25 LED Adafruit NeoPixel ring in this project and a temperature sensor with an Arduino-UNO.
 //It is bright enough in a globe enclosure frankly to light up the room like the sun, so my advice, alter your build with a lightshield
 //or use no more than a 5 led light with a shroud.
 //
@@ -20,7 +20,8 @@
 //
 //uses FastLED (led library) and dht (temp and humidity sensor) libraries, you'll have to seek the library for FastLED here on github (link provided).
 //Included relevant dht library from author who passed his version into the public domain.
-//YOU WILL NEED FastLED and dht
+//YOU WILL NEED FastLED **AND** dht libraries.
+//
 /*The MIT License (MIT)
 
 Copyright (c) 2013 FastLED : https://github.com/FastLED/FastLED
@@ -52,7 +53,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.*/
 // inspired by DHT11 library
 //
 // Released to the public domain
-//
+/////////////////////////////////////////
 
 //Humidity sensor is NOT used in this build, though the option exists.
 //
@@ -73,25 +74,25 @@ CRGB leds[NUM_LEDS];
 
 void setup() {
   // put your setup code here, to run once:
-  pinMode(13,OUTPUT); digitalWrite(13,LOW); //Turn OFF the onboard "L" LED
+  pinMode(13,OUTPUT); digitalWrite(13,LOW); //Turn OFF the Arduino-Uno onboard "L" LED
   FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
   Serial.begin(57600);
   Serial.println("Setup Complete.");
-  LEDS.setBrightness(10); //added by Lola
-  singleRandomLED(0x7FFF00);//added by Lola .. Acts as a pretty good, hi we're on, flash.
+  LEDS.setBrightness(10);
+  singleRandomLED(0x7FFF00);// Acts as a pretty good, hi we're on, flash.
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
 
-  delay(2000); //added by Lola (To assure polling of temp sensor every 2 seconds and no faster).
+  delay(2000);// (To assure polling of temp sensor every 2 seconds and no faster).
   tmphum();//Temperature Check subroutine!
     if (tmpf<=tC){tooCold();}
     if (tmpf>=tH){tooHot();}
     Serial.println(SDCO);
     if (tmpf==SDCO){sensorDeadMode();}
     else{standardMode();}
-  delay(10); //added by Lola
+  delay(10); 
   //Serial.println("End Cycle - Beginning again.");
 }
 
@@ -130,7 +131,7 @@ void singleRandomLED(CRGB c){
 
 void tooCold(){
 
-  LEDS.setBrightness(100); //added by Lola
+  LEDS.setBrightness(100);
   allColor(0x1E90FF);//Change all LEDS to BLUE.
     while(tmpf<=tC){
       //While the temperature sensor is less than or equal to defined tC degrees, wait twenty more seconds and check again til it isn't.
@@ -142,7 +143,7 @@ void tooCold(){
 
 
 void tooHot(){
-LEDS.setBrightness(100); //added by Lola
+LEDS.setBrightness(100);
   allColor(0xFF0000);//Change all LEDS to RED.
     while(tmpf>=tH){
       //While the temperature sensor is greater than or equal to defined tH degrees, wait twenty more seconds and check again til it isn't.
@@ -164,7 +165,7 @@ void singleTick(){
 
 void standardMode(){
   //stay off for 30 seconds then jump back to loop. Replaces singleTick() temporarily as the kids having adverse reaction to constant on bright led.. go fig. `
-  LEDS.setBrightness(10); //added by Lola
+  LEDS.setBrightness(10);
   allColor(0x000000);
   delay(20000);
 }
@@ -175,7 +176,7 @@ void sensorDeadMode(){
   g++;
   if (g==24)
   {g=0;}
-  LEDS.setBrightness(10); //added by Lola
+  LEDS.setBrightness(10);
   allColor(0x000000);
-  singleRandomLED(0xFFC300);//added by Lola
+  singleRandomLED(0xFFC300);
 }
