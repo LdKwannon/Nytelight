@@ -18,10 +18,12 @@
 //
 //Code will let you know if the temperature/humidity sensor is disconnected or non functional via led.
 //
-//uses FastLED (led library) and dht (temp and humidity sensor) libraries, license info for those will be added here when I find them.
+//uses FastLED (led library) and dht (temp and humidity sensor) libraries, you'll have to seek the library for FastLED here on github (link provided).
+//Included relevant dht library from author who passed his version into the public domain.
+//YOU WILL NEED FastLED and dht
 /*The MIT License (MIT)
 
-Copyright (c) 2013 FastLED
+Copyright (c) 2013 FastLED : https://github.com/FastLED/FastLED
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
